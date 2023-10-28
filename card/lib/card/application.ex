@@ -9,12 +9,14 @@ defmodule Card.Application do
   def start(_type, _args) do
     children = [
       CardWeb.Telemetry,
-      {DNSCluster, query: Application.get_env(:card, :dns_cluster_query) || :ignore},
+      # {DNSCluster, query: Application.get_env(:card, :dns_cluster_query) || :ignore},
       {Phoenix.PubSub, name: Card.PubSub},
       # Start a worker by calling: Card.Worker.start_link(arg)
       # {Card.Worker, arg},
       # Start to serve requests, typically the last entry
-      CardWeb.Endpoint
+      CardWeb.Endpoint,
+      {Card.Store, "deck.db"},
+      {Card.Worker, []}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
