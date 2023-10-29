@@ -16,18 +16,18 @@ defmodule CardWeb.CardController do
 
   def shuffle(conn, _params) do
     Card.Worker.shuffle()
-    send_resp(conn, 200, "Deck shuffled")
+    send_resp(conn, 200, "shuffle deck")
   end
 
   def new(conn, _params) do
     Card.Worker.new()
-    send_resp(conn, 200, "Spawned nessw deck")
+    send_resp(conn, 200, "new deck")
   end
 
   def deal(conn, params) do
     qty = get_quantity(params)
     {status, cards} = deal_cards(qty)
-    json(conn, %{"status" => status, "dead cards" => cards})
+    json(conn, %{"status: " => status, "deck: " => cards})
   end
 
 
