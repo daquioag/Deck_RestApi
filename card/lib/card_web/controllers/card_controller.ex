@@ -3,8 +3,8 @@ defmodule CardWeb.CardController do
 
   def value(conn, _param) do
     IO.inspect(conn)
-    value = Counter.Worker.value()
-    render(conn, :value, value: value)
+    value = Card.Worker.value()
+    send_resp(conn, 200, value)
   end
 
   def count(conn, _params) do

@@ -3,27 +3,27 @@ defmodule Card.Worker do
 
   def start_link(arg) do
     IO.puts("Card.Worker is starting... ")
-    GenServer.start_link(MODULE, arg, name: MODULE)
+    GenServer.start_link(__MODULE__, arg, name: __MODULE__)
   end
 
   def new() do
-    GenServer.cast(MODULE, :new)
+    GenServer.cast(__MODULE__, :new)
   end
 
   def shuffle() do
-    GenServer.cast(MODULE, :shuffle)
+    GenServer.cast(__MODULE__, :shuffle)
   end
 
   def count() do
-    GenServer.call(MODULE, :count)
+    GenServer.call(__MODULE__, :count)
   end
 
   def deal(n \\ 1) do
-    GenServer.call(MODULE, {:deal, n})
+    GenServer.call(__MODULE__, {:deal, n})
   end
 
   def value() do
-    GenServer.call(MODULE, :value)
+    GenServer.call(__MODULE__, :value)
   end
 
   @impl true

@@ -2,15 +2,15 @@ defmodule Card.Store do
   use GenServer
 
   def start_link(file) do
-    GenServer.start_link(MODULE, file, name: MODULE)
+    GenServer.start_link(__MODULE__, file, name: __MODULE__)
   end
 
   def get() do
-    GenServer.call(MODULE, :get)
+    GenServer.call(__MODULE__, :get)
   end
 
   def put(value) do
-    GenServer.cast(MODULE, {:put, value})
+    GenServer.cast(__MODULE__, {:put, value})
   end
 
   @impl true
@@ -23,8 +23,8 @@ defmodule Card.Store do
     reply =
       case File.read(file) do
         {:ok, content} ->
-          :erlang.binary_toterm(content)
-        {:error, } ->
+          :erlang.binary_to_term(content)
+        {:error, _reason} ->
           nil
       end
     {:reply, reply, file}
